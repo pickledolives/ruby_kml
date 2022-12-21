@@ -25,10 +25,12 @@
 module KML
   class Placemark < KML::Container
     attr_accessor :geometry
+    attr_accessor :data_schema_url
     
     def render(xm=Builder::XmlMarkup.new(:indent => 2))
       xm.Placemark {
         super
+        xm.ExtendedData { xm.tag!('SchemaData', schemaUrl: data_schema_url) { data.each { |r| xm.SimpleData(r.data_value, name: r.data_name) } } }
         features.each { |f| f.render(xm) }
         plain_children.each { |c| xm << c }
         geometry.render(xm) unless geometry.nil?

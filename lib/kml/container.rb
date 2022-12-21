@@ -5,6 +5,11 @@ module KML
     # Access the features in the container
     attr_accessor :features
     attr_accessor :plain_children
+    attr_accessor :data
+
+    def data
+      @data ||= []
+    end
     
     # Get the features in the container
     def features
@@ -18,5 +23,6 @@ module KML
   end
 end
 
+require 'kml/simple_data'
 require 'kml/folder'
 require 'kml/document'
